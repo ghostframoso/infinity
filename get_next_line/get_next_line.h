@@ -29,9 +29,4 @@ char		*ft_strjoin(const char *s1, const char *s2);
 char		*ft_strdup(const char *s1);
 size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize);
 
-/* internal */
-char		*read_to_buffer(int fd, char *buffer, char *temp);
-static char	*get_line_buffer(char *buffer);
-static void	buffer_move(char *buffer);
-
 #endif
