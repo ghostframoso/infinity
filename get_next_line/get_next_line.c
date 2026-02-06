@@ -1,148 +1,109 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jomason <jomason@student.42.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/03 19:09:09 by jomason           #+#    #+#             */
-/*   Updated: 2026/02/06 10:41:55 by jomason          ###   ########.fr       */
+/*   Created: 2025/10/18 14:55:16 by jomason           #+#    #+#             */
+/*   Updated: 2026/02/06 11:18:18 by jomason          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*get_next_line(int fd)
+char	*ft_strchr(const char *s, int c)
 {
-	static char	buffer[BUFFER_SIZE + 1];
-	char		*line;
-	char		*temp;
+	size_t	i;
 
-	if (fd < 0 || BUFFER_SIZE < 1)
-		return (buffer[0] = '\0', NULL);
-	if (ft_strchr(buffer, '\n'))
-		return (line = get_line_buffer(buffer), buffer_move(buffer), line);
-	temp = ft_strdup(buffer);
-	if (!temp)
+	if (!s)
 		return (NULL);
-	buffer[0] = '\0';
-	temp = read_to_buffer(fd, buffer, temp);
-	if (!temp)
-		return (NULL);
-	line = get_line_buffer(temp);
-	if (line && temp[0])
-		ft_strlcpy(buffer, temp + ft_strlen(line), BUFFER_SIZE + 1);
-	free(temp);
-	return (line);
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == (char)c)
+			return ((char *)&s[i]);
+		i++;
+	}
+	if (c == '\0')
+		return ((char *)&s[i]);
+	return (NULL);
 }
 
-static char	*get_line_buffer(char *buffer)
+char	*ft_strdup(const char *s)
 {
-	char	*line;
 	size_t	i;
+	char	*dup;
+
+	i = 0;
+	dup = malloc(ft_strlen(s) + 1);
+	if (!dup)
+		return (NULL);
+	while (s[i])
+	{
+		dup[i] = s[i];
+		i++;
+	}
+	dup[i] = '\0';
+	return (dup);
+}
+
+char	*ft_strjoin(const char *s1, const char *s2)
+{
+	char	*united;
 	size_t	j;
+	size_t	i;
+	size_t	m;
 
 	i = 0;
 	j = 0;
-	if (!buffer || buffer[0] == '\0')
+	m = (ft_strlen(s1) + ft_strlen(s2));
+	united = (char *)malloc(sizeof(char) * m + 1);
+	if (!united)
 		return (NULL);
-	while (buffer[i] != '\n' && buffer[i] != '\0')
-		i++;
-	if (buffer[i] == '\n')
-		i++;
-	line = malloc(i + 1);
-	if (!line)
-		return (NULL);
-	while (j < i)
+	while (s1[i])
 	{
-		line[j] = buffer[j];
+		united[i] = s1[i];
+		i++;
+	}
+	while (s2[j])
+	{
+		united[i] = s2[j];
+		i++;
 		j++;
 	}
-	line[j] = '\0';
-	return (line);
+	united[i] = '\0';
+	return (united);
 }
 
-static void	buffer_move(char *buffer)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	size_t	len_src;
+	size_t	i;
+
+	len_src = 0;
+	i = 0;
+	while (src[len_src] != '\0')
+		len_src++;
+	if (dstsize == 0)
+		return (len_src);
+	while (i < dstsize - 1 && src[i] != '\0')
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (len_src);
+}
+
+size_t	ft_strlen(const char *s)
 {
 	size_t	i;
-	size_t	j;
 
 	i = 0;
-	j = 0;
-	while (buffer[i] != '\n' && buffer[i] != '\0')
+	if (!s)
+		return (0);
+	while (s[i])
 		i++;
-	if (buffer[i] != '\n')
-		i++;
-	while (buffer[i] != '\0')
-		buffer[j++] = buffer[i++];
-	buffer[j] = '\0';
+	return (i);
 }
-
-char	*read_to_buffer(int fd, char *buffer, char *temp)
-{
-	char	buffer_read[BUFFER_SIZE + 1];
-	char	*temp_old;
-	int		read_bytes;
-
-	read_bytes = 1;
-	while (read_bytes > 0 && !ft_strchr(temp, '\n'))
-	{
-		read_bytes = read(fd, buffer_read, BUFFER_SIZE);
-		if (read_bytes == -1)
-			return (free(temp), buffer[0] = '\0', NULL);
-		if (read_bytes == 0)
-			break ;
-		buffer_read[read_bytes] = '\0';
-		temp_old = temp;
-		temp = ft_strjoin(temp_old, buffer_read);
-		free(temp_old);
-		if (!temp)
-			return (NULL);
-	}
-	return (temp);
-}
-
-// #include <fcntl.h>
-// #include <stdio.h>
-
-// int	main()
-// {
-// 	int	fd;
-// 	char *line;
-
-// 	fd = open("test.txt", O_RDONLY);
-// 	if (fd < 0)
-// 		return (printf("I can't read o.o\n"), (fd < 0));
-// 	line = get_next_line(fd);
-// 	if (line != NULL) //if instead of while
-// 	{
-// 		printf("%s", line);
-// 		free(line);
-// 		// line = get_next_line(fd);
-// 	}
-// 	close(fd);
-// 	return (0);
-// }
-// // the gist:
-// // BUFFER_SIZE is about how much you read, not how many files exist.
-// // Using it to index file descriptors is a category error.
-
-// // hidden dragon: multi-fd read, if that case 
-// // then static char *stash[BUFFER_SIZE + 1] is better.
-// // Bc each fd is appending to the same stash which
-// // will will lead to mixed buffers and
-// // lines cross-contaminate.
-// // fd1 = open("a.txt", O_RDONLY);
-// // fd2 = open("b.txt", O_RDONLY);
-// // get_next_line(fd1);
-// // get_next_line(fd2);
-// // get_next_line(fd1);
-// // get_next_line(fd2)
-// //
-// // The deep conceptual reason:
-// // static char *stash; is a state machine buffer.
-// // static char *stash[BUFFER_SIZE + 1]; is:
-// // a fake fd-indexed cache with incorrect bounds.
-// // They are solving different problems.
-// // Real solution is static char *stash[OPEN_MAX];
-// // #include <limits.h>
