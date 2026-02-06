@@ -6,7 +6,7 @@
 /*   By: jomason <jomason@student.42.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 14:55:16 by jomason           #+#    #+#             */
-/*   Updated: 2026/02/06 10:59:18 by jomason          ###   ########.fr       */
+/*   Updated: 2026/02/06 11:18:18 by jomason          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*ft_strdup(const char *s)
 	return (dup);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(const char *s1, const char *s2)
 {
 	char	*united;
 	size_t	j;
