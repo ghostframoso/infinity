@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jomason <jomason@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jomason <jomason@student.42.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 19:09:12 by jomason           #+#    #+#             */
-/*   Updated: 2026/01/14 14:00:16 by jomason          ###   ########.fr       */
+/*   Updated: 2026/01/24 15:17:03 by jomason          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# include <unistd.h>
-# include <stdlib.h>
+# include <unistd.h> //read
+# include <stdlib.h> //malloc, free
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42

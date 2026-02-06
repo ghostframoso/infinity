@@ -3,26 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jomason <jomason@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jomason <jomason@student.42.de>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 14:55:16 by jomason           #+#    #+#             */
-/*   Updated: 2026/01/14 13:46:08 by jomason          ###   ########.fr       */
+/*   Updated: 2026/02/06 10:59:18 by jomason          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	if (!s)
-		return (0);
-	while (s[i])
-		i++;
-	return (i);
-}
 
 char	*ft_strchr(const char *s, int c)
 {
@@ -60,39 +48,62 @@ char	*ft_strdup(const char *s)
 	return (dup);
 }
 
-static size_t	ft_copy_at(char *dst, const char *src, size_t at)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	size_t	k;
+	char	*united;
+	size_t	j;
+	size_t	i;
+	size_t	m;
 
-	k = 0;
-	while (src[k])
-	{
-		dst[at + k] = src[k];
-		k++;
-	}
-	return (k);
-}
-
-char	*ft_strjoin(char *s1, const char *s2)
-{
-	size_t		i;
-	size_t		j;
-	char		*joined;
-	const char	*s2p;
-
-	if (!s2)
-		s2p = "";
-	else
-		s2p = s2;
-	if (!s1)
-		return (ft_strdup(s2p));
-	joined = malloc(ft_strlen(s1) + ft_strlen(s2p) + 1);
-	if (!joined)
-		return (NULL);
 	i = 0;
 	j = 0;
-	i += ft_copy_at(joined, s1, 0);
-	j += ft_copy_at(joined, s2p, i);
-	joined[i + j] = '\0';
-	return (joined);
+	m = (ft_strlen(s1) + ft_strlen(s2));
+	united = (char *)malloc(sizeof(char) * m + 1);
+	if (!united)
+		return (NULL);
+	while (s1[i])
+	{
+		united[i] = s1[i];
+		i++;
+	}
+	while (s2[j])
+	{
+		united[i] = s2[j];
+		i++;
+		j++;
+	}
+	united[i] = '\0';
+	return (united);
+}
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	size_t	len_src;
+	size_t	i;
+
+	len_src = 0;
+	i = 0;
+	while (src[len_src] != '\0')
+		len_src++;
+	if (dstsize == 0)
+		return (len_src);
+	while (i < dstsize - 1 && src[i] != '\0')
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (len_src);
+}
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	if (!s)
+		return (0);
+	while (s[i])
+		i++;
+	return (i);
 }
