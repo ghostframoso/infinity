@@ -1,67 +1,65 @@
-**ft_printf - Because ft_putnbr() and ft_putstr() aren't enough**
-This project has been created as part of the 42 curriculum by jomason. 
+
+**This project has been created as part of the 42 curriculum by jomason.**
+
+
+**ft_printf** - Because ft_putnbr() and ft_putstr() aren't enough
+
 
 📝 **Description**
+
 The goal of this project is straightforward: recode the printf() function from the standard C library (libc). Through this exercise, I discovered the power of variadic functions in C and the importance of creating well-structured, extensible code. The resulting library, libftprintf.a, can be integrated into future 42 projects.
 
 
 
+🛠️ **Instructions**
 
-🛠️ **Usage**
 Compilation
 
 The project includes a Makefile that compiles the source files using cc with the flags -Wall -Wextra -Werror.
 
-Bash
-make        # Compiles libftprintf.a
-make clean  # Removes object files
+Bash make # Compiles libftprintf.a
+make clean # Removes object files 
 make fclean # Removes object files and the library
-make re     # Rebuilds the project
-Integration
+make re # Rebuilds the project Integration
 
 To use ft_printf in your own C code:
 
-Include the header: #include "ft_printf.h" 
+Include the header: #include "ft_printf.h"
 
 Link the library during compilation: cc main.c libftprintf.a
 
 🔍 **Supported Conversions**
+
 My implementation handles the following mandatory format specifiers:
 
-Specifier	Description	[cite]
-%c	
-Prints a single character.
+Specifier Description
 
-%s	
-Prints a string (standard C convention).
+%c Prints a single character.
 
-%p	
-Prints a void * pointer in hexadecimal format.
+%s Prints a string (standard C convention).
 
-%d	
-Prints a decimal (base 10) number.
+%p Prints a void * pointer in hexadecimal format.
 
-%i	
-Prints an integer in base 10.
+%d Prints a decimal (base 10) number.
 
-%u	
-Prints an unsigned decimal (base 10) number.
+%i Prints an integer in base 10.
 
-%x	
-Prints a number in hexadecimal (base 16) lowercase.
+%u Prints an unsigned decimal (base 10) number.
 
-%X	
-Prints a number in hexadecimal (base 16) uppercase.
+%x Prints a number in hexadecimal (base 16) lowercase.
 
-%%	
-Prints a percent sign.
+%X Prints a number in hexadecimal (base 16) uppercase.
 
+%% Prints a percent sign.
 
+🚀 **Resources**
 
+The man and the world wide web.
 
 
 
 🧮 **Implementation Details**
+
 Algorithm & Logic
 
 My implementation uses a modular dispatch system:
